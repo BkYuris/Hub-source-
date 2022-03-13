@@ -1,0 +1,92 @@
+-- Made By ErrNatsuki --
+
+-- Return Function Keybind --
+
+if IY_LOADED and not _G.IY_DEBUG == true then
+game.StarterGui:SetCore("SendNotification", {
+Title = "Error",
+Text = "Script Already running",
+Duration = 3
+})
+return
+end
+
+pcall(function() 
+getgenv().IY_LOADED = true
+end)
+
+local ver
+local manifest
+
+local funCb = {
+version = '1.0',
+manifestAssets = 'local function Manifest ~ returnArg4B:Red:B/L'
+}
+
+if readfile("IY_FE_HUB.iy") == "" then
+writefile("IY_FE_HUB.iy",game:GetService("HttpService"):JSONEncode(funCb))
+end
+
+pcall(function()
+local json = game:GetService("HttpService"):JSONDecode(readfile("IY_FE_HUB"))
+if json.version ~= nil then
+ver = json.verson
+else
+ver = '1.0'
+end
+if json.manifestAssets ~= nil then
+manifest = json.manifestAssets
+end
+end)
+
+if manifest == 'local function Manifest ~ returnArg4B:Red:B/L' then
+if ver == '1.0' then
+game.StarterGui:SetCore("SendNotification", {
+Title = "Script",
+Text = "No Update Detected",
+Duration = 3
+})
+wait(0.5)
+game.StarterGui:SetCore("SendNotification", {
+Title = "Script",
+Text = "Press 'm' to start",
+Duration = 3
+})
+local mouse = game.Players.LocalPlayer:GetMouse()
+local groot = nil
+mouse.KeyDown:connect(function(k)
+if k == 'm' then
+game.StarterGui:SetCore("SendNotification", {
+Title = "Script",
+Text = "Success",
+Duration = 3
+})
+loadstring(game:HttpGet("https://raw.githubusercontent.com/BkYuris/Hub-source-/main/hub"))()
+end)
+else
+game.StarterGui:SetCore("SendNotification", {
+Title = "Script",
+Text = "Update detected, Press 'B' to update it",
+Duration = 3
+})
+wait(0.5)
+local mouse = game.Players.LocalPlayer:GetMouse()
+local groot = nil
+mouse.KeyDown:connect(function(k)
+if k == "b" then
+game.StarterGui:SetCore("SendNotification", {
+Title = "Script",
+Text = "Updating Please Wait",
+Duration = 3
+})
+end
+else
+game.StarterGui:SetCore("SendNotification", {
+Title = "m$ni_est",
+Text = "f$ild t$ lo+d d#:a",
+Duration = 3
+})
+return
+end
+
+-- elseif Data then end --
